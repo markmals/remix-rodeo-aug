@@ -1,51 +1,16 @@
-import {
-    Form,
-    useLoaderData,
-    ActionFunctionArgs,
-    defineRoute,
-    Params,
-    MetaDescriptor,
-    LinkDescriptor,
-    AppLoadContext,
-    UIMatch,
-    MetaMatch as _MetaMatch,
-} from "react-router"
 import { menu } from "~/data/menu.server"
 import { Image } from "@unpic/react"
 import { upsert } from "./upsert.server"
 import { card } from "~/styles/card"
 import { currencyFormatter } from "~/lib/formatters"
-import { ReactNode } from "react"
+import { ActionFunctionArgs } from "@remix-run/node"
+import { Form, useLoaderData } from "@remix-run/react"
 // import { z } from "zod"
 // import { parseWithZod } from "@conform-to/zod"
 
 export function loader() {
     return { menu }
 }
-
-// export function defineAction<Z extends z.ZodType, R>({
-//     input: schema,
-//     handler,
-// }: {
-//     input: Z
-//     handler: (input: z.infer<Z>, context: ActionFunctionArgs) => Promise<R>
-// }): (args: ActionFunctionArgs) => Promise<R> {
-//     return async (context: ActionFunctionArgs): Promise<R> => {
-//         let formData = await context.request.formData()
-//         // TODO: Catch input parsing error and hand off to the client
-//         let parsedInput = parseWithZod(formData, { schema })
-//         console.log("parsedInput", parsedInput)
-//         return await handler(parsedInput, context)
-//     }
-// }
-
-// export const action = defineAction({
-//     input: z.object({ "add-item-to-cart": z.string() }),
-//     async handler({ "add-item-to-cart": itemId }) {
-//         await upsert(itemId)
-//         return null
-//     },
-// })
 
 export async function action({ request }: ActionFunctionArgs) {
     let formData = await request.formData()
